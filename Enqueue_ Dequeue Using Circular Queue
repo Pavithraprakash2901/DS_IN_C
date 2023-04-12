@@ -1,0 +1,181 @@
+//********IMPLEMENTATION OF DEQUE USING CIRCULAR ARRAY******
+#include<stdio.h>
+#define N 5
+int deque[N];
+int front=-1;
+int rear=-1;
+void enqueue_front(int element)
+{
+ if((front==0 && rear==N-1) || (front==rear+1))
+ {
+ printf("Queue is overflow..");
+ }
+ else if(front==-1 && rear==-1)
+ {
+ front=rear=0;
+ deque[front]=element;
+ }
+ else if(front==0)
+ {
+ front=N-1;
+ deque[front]=element;
+ }
+ else
+ {
+ front--;
+ deque[front]=element;
+ }
+}
+void enqueue_rear(int element)
+{
+ if((front==0 && rear==N-1) || (front==rear+1))
+ {
+ printf("Queue is overflow..");
+ }
+ else if(front==-1 && rear==-1)
+ {
+ front=rear=0;
+ deque[rear]=element;
+ }
+ else if(rear==N-1)
+ {
+ rear=0;
+ deque[rear]=element;
+ }
+ else
+ {
+ rear++;
+ deque[rear]=element;
+ }
+}
+void display()
+{
+ int i=front;
+ if(front==-1 && rear==-1)
+ {
+ printf("\n Queue is empty..");
+ }
+ else
+ {
+ printf("\nElements in a Queue are :");
+ while(i!=rear)
+ {
+ printf("%d ", deque[i]);
+ i=(i+1)%N;
+ }
+ printf("%d", deque[rear]);
+ }
+}
+void getfront()
+{
+ if(front==-1 && rear==-1)
+ {
+ printf("\n Queue is empty..");
+ }
+ else
+ {
+ printf("The front element is %d",deque[front]);
+ }
+}
+void getrear()
+{
+ if(front==-1 && rear==-1)
+ {
+ printf("\n Queue is empty..");
+ }
+ else
+ {
+ printf("The rear element is %d",deque[rear]);
+ }
+}
+void deque_front()
+{
+ if(front==-1 && rear==-1)
+ {
+ printf("\n Queue is empty..");
+ }
+ else if(front==rear)
+ {
+ front=rear=-1;
+ printf("The dequeued element is %d",deque[front]);
+ }
+ else if(front==N-1)
+ {
+ printf("The dequeued element is %d",deque[front]);
+ front=0;
+ }
+ else
+ {
+ printf("The dequeued element is %d",deque[front]);
+ front++;
+ }
+}
+void deque_rear()
+{
+ if(front==-1 && rear==-1)
+ {
+ printf("\n Queue is empty..");
+ }
+ else if(front==rear)
+ {
+ front=rear=-1;
+ printf("The dequeued element is %d",deque[rear]);
+ }
+ else if(rear==0)
+ {
+ printf("The dequeued element is %d",deque[rear]);
+ rear=N-1;
+ }
+ else
+ {
+ printf("The dequeued element is %d",deque[rear]);
+ rear--;
+ }
+}
+int main()
+{
+ int choice,x;
+ while(1)
+ {
+ printf("\nPress 1: Enqueue front element");
+ printf("\nPress 2: Enqueue rear element");
+ printf("\nPress 3: Deque front element");
+ printf("\nPress 4: Deque rear element");
+ printf("\nPress 5: Display the element");
+ printf("\nPress 6: Get the front element");
+ printf("\nPress 7: Get the rear element");
+ printf("\nEnter your choice");
+ scanf("%d", &choice);
+ switch(choice)
+ {
+ case 1:
+ printf("Enter the element which is to be inserted");
+ scanf("%d",&x);
+ enqueue_front(x);
+ break;
+ case 2:
+ printf("Enter the element which is to be inserted");
+ scanf("%d",&x);
+ enqueue_rear(x);
+ break;
+ case 3:
+ deque_front();
+ break;
+ case 4:
+ deque_rear();
+ break;
+ case 5:
+ display();
+ break;
+ case 6:
+ getfront();
+ break;
+ case 7:
+ getrear();
+ break;
+ case 8:
+ printf("Invalid choice");
+ }
+ }
+ return 0;
+}
