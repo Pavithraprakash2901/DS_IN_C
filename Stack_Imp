@@ -1,0 +1,80 @@
+// stack using array
+#include<stdio.h>
+#include<stdlib.h>
+#define max 10
+int top=-1,n;
+int stack[max];
+void push();
+void pop();
+void peek();
+void display();
+int main()
+{
+    int choice;
+    do
+    {
+        printf("**********stack using array*****************\n");
+        printf(" 1.Push\n 2.pop\n 3.peek\n 4.display\n ");
+        printf("ENTER YOUR CHOICE: ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+        case 1:
+            push();
+            break;
+        case 2:
+            pop();
+            break;
+        case 3:
+            peek();
+            break;
+        case 4:
+            display();
+            break;
+            default:
+            exit (0);
+        }
+
+    }while(choice!=0);
+    return 0;
+}
+void push()
+{
+    if(top==max-1)
+    {
+        printf("stack overflow\n");
+    }
+    else{
+    printf("enter the value yu wnt to push: ");
+    scanf("%d",&n);
+    top++;
+    stack[top]=n;
+
+    }
+}
+void pop()
+{
+    if(top==-1)
+    {
+        printf("stack underflow\n");
+    }
+    else
+    {
+        n=stack[top];
+        top--;
+        printf("the element popped is %d\n",n);
+    }
+}
+void peek()
+{
+    printf("the element in the top is %d: \n",stack[top]);
+}
+void display()
+{
+ printf("the elements in the top are: \n");
+ for(int i=top;i>=0;i--)
+ {
+     printf("%d---> ",stack[i]);
+ }
+ printf("\n");
+}
