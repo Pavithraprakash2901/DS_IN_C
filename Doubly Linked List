@@ -1,0 +1,197 @@
+// DOUBLY LINKED LIST
+#include<stdio.h>
+##include<stdlib.h>
+struct node
+{
+ int data;
+ struct node*next;
+ struct node*prev;
+}*head,*tail,*temp,*newnode,*nextnode;
+int main()
+{
+ int option;
+ while(1)
+ {
+ printf("\n\n***DOUBLY LINKED LIST***\n\n");
+ printf("1.Creation\n");
+ printf("2.Display\n");
+ printf("3.Count\n");
+ printf("4.Insert at front\n");
+ printf("5.Insert at end\n");
+ printf("6.Insert at middle\n");
+ printf("7.Delete at front\n");
+ printf("8.Delete at end\n");
+ printf("9.Delete at middle\n");
+ printf("10.Search an element\n");
+ printf("11.Exit\n");
+ printf("Enter your option(1,2,3,4,5,6,7,8,9,10,11): ");
+ scanf("%d",&option);
+ switch(option)
+ {
+ case 1: create();
+ break;
+ case 2: display();
+ break;
+ case 3: count();
+ break;
+ case 4: insertfront();
+ break;
+ case 5: insertend();
+ break;
+ case 6: insertmid();
+ break;
+ case 7: deletefront();
+ break;
+ case 8: deleteend();
+ break;
+ case 9: deletemid();
+ break;
+ case 10: search();
+ break;
+ case 11: exit(0);
+ default: printf("Invalid option\n");
+ break;
+ }
+ }
+ return 0;
+}
+void create()
+{
+ int n,i;
+ printf("Enter the size: ");
+ scanf("%d",&n);
+ for(i=1;i<=n;i++)
+ {
+ newnode=(struct node*)malloc(sizeof(struct node));
+ printf("Enter the elements: ");
+ scanf("%d",&newnode->data);
+ newnode->prev=NULL;
+ newnode->next=NULL;
+ if(head==NULL)
+ {
+ head=tail=newnode;
+ }
+ else
+ {
+ tail->next=newnode;
+ newnode->prev=tail;
+ tail=newnode;
+ }
+ }
+}
+void display()
+{
+ temp=head;
+ printf("Displayed the elements:\n");
+ while(temp!=NULL)
+ {
+ printf("%d\n",temp->data);
+ temp=temp->next;
+ }
+}
+void count()
+{
+ int count=0;
+ temp=head;
+ printf("Displayed the elements:\n");
+ while(temp!=NULL)
+ {
+ printf("%d\n",temp->data);
+ temp=temp->next;
+ count++;
+ }
+ printf("Total no.of elements in the list: %d",count);
+}
+void insertfront()
+{
+ newnode=(struct node *)malloc(sizeof(struct node));
+ printf("\nEnter data that you want to insert:");
+ scanf("%d",&newnode->data);
+ newnode->next=NULL;
+ newnode->prev=NULL;
+ head->prev=newnode;
+ newnode->next=head;
+ head=newnode;
+}
+void insertend()
+{
+ newnode=(struct node *)malloc(sizeof(struct node));
+ printf("\nEnter data that you want to insert:");
+ scanf("%d",&newnode->data);
+ newnode->next=NULL;
+ newnode->prev=NULL;
+ tail->next=newnode;
+ newnode->prev=tail;
+ tail=newnode;
+}
+void insertmid()
+{
+ int i=1, pos;
+ temp=head;
+ newnode=(struct node *)malloc(sizeof(struct node));
+ printf("\nEnter the position:");
+ scanf("%d",&pos);
+ printf("\nEnter data that you want to insert:");
+ scanf("%d",&newnode->data);
+ newnode->next=NULL;
+ newnode->prev=NULL;
+ while(i<pos-1)
+ {
+ temp=temp->next;
+ i++;
+ }
+ newnode->prev=temp
+ newnode->next=temp->next;
+ temp->next=newnode;
+ newnode->next->prev=newnode;
+}
+void deletefront()
+{
+ temp=head;
+ head=temp->next;
+ temp->next=NULL;
+ head->prev=NULL;
+ free(temp);
+}
+void deleteend()
+{
+ tail->prev->next=NULL;
+ free(tail);
+}
+void deletemid()
+{
+ int j=1,pos;
+ temp=head;
+ printf("\nEnter the position:");
+ scanf("%d",&pos);
+ while(j<pos-1)
+ {
+ temp=temp->next;
+ j++;
+ }
+ nextnode=temp->next;
+ temp->next=nextnode->next;
+ free(nextnode);
+}
+void search()
+{
+ int search, index=0;
+ printf("Enter an element to search in the list:");
+ scanf("%d",&search);
+ temp=head;
+ while(temp!=NULL)
+ {
+ if(temp->data == search)
+ {
+ index++;
+ }
+ temp=temp->next;
+ }
+ if(index==1)
+ {
+ printf("\nElement is there");}
+ else
+ {
+ printf("\nElement is not there");
+ }
+}
